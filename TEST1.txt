@@ -1,5 +1,0 @@
-https://github.com/lcs3303/FINISH.git
-
-
-¹Ù²Ù±â
-git clone git://github.com/lcs3303/FINISH.git

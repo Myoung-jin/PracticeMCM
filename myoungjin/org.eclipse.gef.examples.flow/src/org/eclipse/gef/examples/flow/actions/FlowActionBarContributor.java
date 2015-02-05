@@ -18,16 +18,8 @@ import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.EditorActionBarContributor;
 
-/**
- * Contributes actions to the Editor.
- * 
- * @author Daniel Lee
- */
 public class FlowActionBarContributor extends ActionBarContributor {
 
-	/**
-	 * @see org.eclipse.gef.ui.actions.ActionBarContributor#buildActions()
-	 */
 	protected void buildActions() {
 		addRetargetAction(new UndoRetargetAction());
 		addRetargetAction(new RedoRetargetAction());
@@ -35,9 +27,6 @@ public class FlowActionBarContributor extends ActionBarContributor {
 
 	}
 
-	/**
-	 * @see EditorActionBarContributor#contributeToToolBar(IToolBarManager)
-	 */
 	public void contributeToToolBar(IToolBarManager toolBarManager) {
 		toolBarManager.add(getAction(ActionFactory.UNDO.getId()));
 		toolBarManager.add(getAction(ActionFactory.REDO.getId()));

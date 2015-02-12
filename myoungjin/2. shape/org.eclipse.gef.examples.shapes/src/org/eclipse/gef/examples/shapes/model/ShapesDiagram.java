@@ -19,8 +19,9 @@ import java.util.List;
  * 
  * @author Elias Volanakis
  */
-public class ShapesDiagram extends ModelElement {
-
+public class ShapesDiagram extends ModelElement {//ShapesDiagram-ModelElement-shape-ellipse 
+												//getModel에서 ShapesDiagram만 저장하면 그 child class들이 자동저장..
+												//graphicalEditor에서는 ModelElement만 필요.. shapes자식이 있기 때문이다.
 	/** Property ID to use when a child is added to this diagram. */
 	public static final String CHILD_ADDED_PROP = "ShapesDiagram.ChildAdded";
 	/** Property ID to use when a child is removed from this diagram. */

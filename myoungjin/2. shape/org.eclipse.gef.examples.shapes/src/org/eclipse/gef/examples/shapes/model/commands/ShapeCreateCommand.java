@@ -19,80 +19,55 @@ import org.eclipse.gef.examples.shapes.model.Shape;
 import org.eclipse.gef.examples.shapes.model.ShapesDiagram;
 
 /**
- * A command to add a Shape to a ShapeDiagram. The command can be undone or
- * redone.
- * 
+ * ShapeDiagram에서 쉐이프를 추가하기 위한 명령. redo와 undo가 가능하다
  * @author Elias Volanakis
  */
 public class ShapeCreateCommand extends Command {
 
-	/** The new shape. */
-	private Shape newShape;
-	/** ShapeDiagram to add to. */
-	private final ShapesDiagram parent;
-	/** The bounds of the new Shape. */
-	private Rectangle bounds;
+	private Shape newShape;//새로운 도형
+	private final ShapesDiagram parent;//ShapeDiagram을 추가하기 위함
+	private Rectangle bounds;//도형의 경계
 
 	/**
-	 * Create a command that will add a new Shape to a ShapesDiagram.
-	 * 
-	 * @param newShape
-	 *            the new Shape that is to be added
-	 * @param parent
-	 *            the ShapesDiagram that will hold the new element
-	 * @param bounds
-	 *            the bounds of the new shape; the size can be (-1, -1) if not
-	 *            known
-	 * @throws IllegalArgumentException
-	 *             if any parameter is null, or the request does not provide a
-	 *             new Shape instance
+	 * ShapeDiagram에 새 도형을 추가할 명령을 만들어라
+	 * @param newShape : the new Shape that is to be added
+	 * @param parent : the ShapesDiagram that will hold the new element
+	 * @param bounds : the bounds of the new shape; the size can be (-1, -1) if not known
+	 * @throws IllegalArgumentException : if any parameter is null, or the request does not provide a new Shape instance
 	 */
-	public ShapeCreateCommand(Shape newShape, ShapesDiagram parent,
-			Rectangle bounds) {
+	
+	public ShapeCreateCommand(Shape newShape, ShapesDiagram parent,Rectangle bounds) {//ShapeCreateCommand의 생성자
 		this.newShape = newShape;
 		this.parent = parent;
 		this.bounds = bounds;
 		setLabel("shape creation");
 	}
-
-	/**
-	 * Can execute if all the necessary information has been provided.
-	 * 
-	 * @see org.eclipse.gef.commands.Command#canExecute()
-	 */
-	public boolean canExecute() {
+	
+	 // @see org.eclipse.gef.commands.Command#canExecute()
+	
+	public boolean canExecute() {//세 매개변수가 모드 존재할경우 리턴
 		return newShape != null && parent != null && bounds != null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.gef.commands.Command#execute()
-	 */
+	// @see org.eclipse.gef.commands.Command#execute()
+	
 	public void execute() {
 		newShape.setLocation(bounds.getLocation());
 		Dimension size = bounds.getSize();
-		if (size.width > 0 && size.height > 0)
-			newShape.setSize(size);
+		if (size.width > 0 && size.height > 0) newShape.setSize(size);
 		redo();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.gef.commands.Command#redo()
-	 */
-	public void redo() {
-		parent.addChild(newShape);
+	 // @see org.eclipse.gef.commands.Command#redo()
+
+	public void redo() {//되돌리기
+		parent.addChild(newShape);//Parent에 새로운 Shape를 addChild로 추가해 준다.
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.gef.commands.Command#undo()
-	 */
-	public void undo() {
-		parent.removeChild(newShape);
+	 // @see org.eclipse.gef.commands.Command#undo()
+
+	public void undo() {//실행취소
+		parent.removeChild(newShape);//새로운 Shape를 제거
 	}
 
 }

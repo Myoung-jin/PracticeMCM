@@ -46,13 +46,13 @@ public class ShapesEditPartFactory implements EditPartFactory {
 	 *             if no match was found (programming error)
 	 */
 	private EditPart getPartForElement(Object modelElement) {
-		if (modelElement instanceof ShapesDiagram) {
+		if (modelElement instanceof ShapesDiagram) {// 전체.. 비시각적.
 			return new DiagramEditPart();
 		}
-		if (modelElement instanceof Shape) {
+		if (modelElement instanceof Shape) {//원 , 사각형
 			return new ShapeEditPart();
 		}
-		if (modelElement instanceof Connection) {
+		if (modelElement instanceof Connection) {//연결선.
 			return new ConnectionEditPart();
 		}
 		throw new RuntimeException("Can't create part for model element: "

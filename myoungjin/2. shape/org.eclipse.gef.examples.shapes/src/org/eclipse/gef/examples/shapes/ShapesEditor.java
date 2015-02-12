@@ -82,7 +82,7 @@ public class ShapesEditor extends GraphicalEditorWithFlyoutPalette {
 
 	/** This is the root of the editor's model. */
 	//ShapeDiagram : 그려지는 개체를 List로 관리, List의 순서는 그려질때 중요하게 사용된다.
-	//원과 원이 겹쳐질 때 어느원이 위로 올라올지 아래로 내려갈지 List 순서에 따라 결정하게 된다           때                        
+	//원과 원이 겹쳐질 때 어느원이 위로 올라올지 아래로 내려갈지 List 순서에 따라 결정하게 된다                      
 	private ShapesDiagram diagram;
 	/** Palette component, holding the tools and shapes. */
 
@@ -98,6 +98,8 @@ public class ShapesEditor extends GraphicalEditorWithFlyoutPalette {
 	//새로운 ShapesEditor 인스턴스를 생성합니다. 이 작업 공간에 의해 호출된다.
 	public ShapesEditor() {
 		setEditDomain(new DefaultEditDomain(this));
+		//setEditDomain : 이벤트를 받음.
+		// EditDomain : 뷰에서의 이벤트를 받음
 	}
 
 	/**
@@ -113,17 +115,21 @@ public class ShapesEditor extends GraphicalEditorWithFlyoutPalette {
 	 * 
 	 * @see org.eclipse.gef.ui.parts.GraphicalEditor#configureGraphicalViewer()
 	 */
-	protected void configureGraphicalViewer() {
+	protected void configureGraphicalViewer() {//configureGraphicalViewer() : 그림을 그리게 만듬.. factory
 		super.configureGraphicalViewer();
-		//GraphicalViewer : 현재 그려진 그림을 보여 주는 곳
+		//GraphicalViewer : 현재 그려진 그림을 보여 주는 곳 , 첫 시작점이고 여기서 부터 그림을 그림
 		// 마우스 클릭등 사용자의 Input을 받아 들이며 적절한 이벤트 핸들러로 전달
 		//EditDomain에 대한 레퍼런스를 가짐-vEditDomain에  GraphicalViewer를 추가하면 EditDomain은 다시 GraphicalViewer에 자신을 등록 
 		//ScrollingGraphicalViewer - GraphicalViewer를 상속 받음, 스크롤바가 자동으로 보여지도록 만들어짐. 
 		//                         - Draw2D의 FigureCanvas를 사용하여 구현
 
 
+		//rootEditPart : 시작 부..
+		//EditPartFactory :  
+		//두개의 용도가 비슷한데 두번째는 다른 패턴을 사용할.. 이용자를 위해.
 		
-		GraphicalViewer viewer = getGraphicalViewer();
+		GraphicalViewer viewer = getGraphicalViewer(); 
+		
 		viewer.setEditPartFactory(new ShapesEditPartFactory());
 		viewer.setRootEditPart(new ScalableFreeformRootEditPart());
 		viewer.setKeyHandler(new GraphicalViewerKeyHandler(viewer));
@@ -142,6 +148,10 @@ public class ShapesEditor extends GraphicalEditorWithFlyoutPalette {
 	 * org.eclipse.gef.ui.parts.GraphicalEditor#commandStackChanged(java.util
 	 * .EventObject)
 	 */
+	
+	//에디트 도메인이 뷰에 있는 모든 것을 총괄..
+	//코멘스 스택에 이벤트가 날라오면 모델 변경을 위해 
+	
 	public void commandStackChanged(EventObject event) {
 		//편집기 내용이 변경되면, 
 		//workbench의 firePropertyChange(PROP_DIRTY)통해
@@ -150,9 +160,9 @@ public class ShapesEditor extends GraphicalEditorWithFlyoutPalette {
 		super.commandStackChanged(event);
 	}
 
-	private void createOutputStream(OutputStream os) throws IOException {
+	private void createOutputStream(OutputStream os) throws IOException {//createOutputStream : 파일 저장
 		ObjectOutputStream oos = new ObjectOutputStream(os);
-		oos.writeObject(getModel());
+		oos.writeObject(getModel());//top모델 하나만 가지고 오면 자식 모델들은 줄줄이 가지고 옴.
 		oos.close();
 	}
 
@@ -338,7 +348,7 @@ public class ShapesEditor extends GraphicalEditorWithFlyoutPalette {
 	 * 
 	 * @see org.eclipse.ui.part.EditorPart#setInput(org.eclipse.ui.IEditorInput)
 	 */
-	protected void setInput(IEditorInput input) 
+	protected void setInput(IEditorInput input) //불러오기..
 	{
 		super.setInput(input);
 		try {
@@ -423,7 +433,7 @@ public class ShapesEditor extends GraphicalEditorWithFlyoutPalette {
 		/**
 		 * @see org.eclipse.ui.part.IPageBookViewPage#init(org.eclipse.ui.part.IPageSite)
 		 */
-		public void init(IPageSite pageSite) {
+		public void init(IPageSite pageSite) {//액션바에서 undo redo delete등을 만들어 준다.
 			super.init(pageSite);
 			ActionRegistry registry = getActionRegistry();
 			IActionBars bars = pageSite.getActionBars();

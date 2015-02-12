@@ -18,36 +18,24 @@ import org.eclipse.gef.requests.ChangeBoundsRequest;
 
 import org.eclipse.gef.examples.shapes.model.Shape;
 
-/**
- * A command to resize and/or move a shape. The command can be undone or redone.
- * 
- * @author Elias Volanakis
- */
+
+ // resize하거나 shape를 움직이는 명령이다. 이 명령은 undo와 redo가 가능하다.
+ 
 public class ShapeSetConstraintCommand extends Command {
-	/** Stores the new size and location. */
-	private final Rectangle newBounds;
-	/** Stores the old size and location. */
-	private Rectangle oldBounds;
-	/** A request to move/resize an edit part. */
-	private final ChangeBoundsRequest request;
-
-	/** Shape to manipulate. */
-	private final Shape shape;
-
+	private final Rectangle newBounds;//새로운 사이즈를 저장하는 장소... 근데 왜 rectagle이지? 사이즈 조절때문인가?
+	private Rectangle oldBounds;//이전 사이즈를 저장한다.
+	private final ChangeBoundsRequest request;//move/resize를 하기위한 editPart 요청
+	private final Shape shape;//shape 조작
 	/**
-	 * Create a command that can resize and/or move a shape.
-	 * 
-	 * @param shape
-	 *            the shape to manipulate
-	 * @param req
-	 *            the move and resize request
-	 * @param newBounds
-	 *            the new size and location
-	 * @throws IllegalArgumentException
-	 *             if any of the parameters is null
+	 * resize와 move를 할 수 있는 명령을 만들어라
+	 * @param shape : the shape to manipulate
+	 * @param req : the move and resize request
+	 * @param newBounds : the new size and location
+	 * @throws IllegalArgumentException : if any of the parameters is null
 	 */
-	public ShapeSetConstraintCommand(Shape shape, ChangeBoundsRequest req,
-			Rectangle newBounds) {
+	
+	//생성자
+	public ShapeSetConstraintCommand(Shape shape, ChangeBoundsRequest req,Rectangle newBounds) {
 		if (shape == null || req == null || newBounds == null) {
 			throw new IllegalArgumentException();
 		}
@@ -57,45 +45,29 @@ public class ShapeSetConstraintCommand extends Command {
 		setLabel("move / resize");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.gef.commands.Command#canExecute()
-	 */
+	 // @see org.eclipse.gef.commands.Command#canExecute()
 	public boolean canExecute() {
+		//세가지 객체가 존재할 경우 실행이 가능. 요청이 가능한 타입일 경우.
 		Object type = request.getType();
-		// make sure the Request is of a type we support:
 		return (RequestConstants.REQ_MOVE.equals(type)
 				|| RequestConstants.REQ_MOVE_CHILDREN.equals(type)
-				|| RequestConstants.REQ_RESIZE.equals(type) || RequestConstants.REQ_RESIZE_CHILDREN
-				.equals(type));
+				|| RequestConstants.REQ_RESIZE.equals(type) || RequestConstants.REQ_RESIZE_CHILDREN.equals(type));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.gef.commands.Command#execute()
-	 */
-	public void execute() {
+	// @see org.eclipse.gef.commands.Command#execute()
+	public void execute() {//위치가 변경되거나 사이즈가 변경된 객체를 새로 만들어 객체에 삽입한다.
 		oldBounds = new Rectangle(shape.getLocation(), shape.getSize());
 		redo();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.gef.commands.Command#redo()
-	 */
+
+	 // @see org.eclipse.gef.commands.Command#redo()
 	public void redo() {
 		shape.setSize(newBounds.getSize());
 		shape.setLocation(newBounds.getLocation());
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.gef.commands.Command#undo()
-	 */
+ 
+	 // @see org.eclipse.gef.commands.Command#undo()
 	public void undo() {
 		shape.setSize(oldBounds.getSize());
 		shape.setLocation(oldBounds.getLocation());

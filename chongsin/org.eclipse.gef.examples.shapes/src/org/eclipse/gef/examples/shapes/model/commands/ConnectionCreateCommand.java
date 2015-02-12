@@ -22,7 +22,7 @@ import org.eclipse.gef.examples.shapes.model.Shape;
    이 코멘드는 a GraphicalNodeEditPolicy를 가지고 만들었다.
   이 코멘드를 사용하기 위해서 다음의 스텝을 따르시오
 
-   1. GraphicalNodeEditPolicy의 서브클래스를 생성핳라
+   1. GraphicalNodeEditPolicy의 서브클래스를 생성하라
    2. getConnectionCreateCommand(...)를 오버라이딩 하라
    3. the CreateConnectionRequest안에 이 클래스의 객체를 넣어라
    4. getConnectionCompleteCommand(...)를 오버라이드하라. 방법 : ConnectionRequest에 setTarget이라고 불리는데에서 얻어라 

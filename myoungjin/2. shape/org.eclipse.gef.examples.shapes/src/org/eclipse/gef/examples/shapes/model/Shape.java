@@ -28,29 +28,22 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.examples.shapes.ShapesPlugin;
 
 /**
- * Abstract prototype of a shape. Has a size (width and height), a location (x
- * and y position) and a list of incoming and outgoing connections. Use
- * subclasses to instantiate a specific shape.
- * 
+ * shape 추상 프로토 타입.
+ * 가로세로를 가지고 x,y(위치값)을 가지고, 수신 발신 연결을 가진다.
+ * 특정 모양을 인스턴스화 하기 위해서는 서브 클래스를 사용하라
  * @see org.eclipse.gef.examples.shapes.model.RectangularShape
  * @see org.eclipse.gef.examples.shapes.model.EllipticalShape
  * @author Elias Volanakis
  */
 public abstract class Shape extends ModelElement {
-
 	/**
-	 * A static array of property descriptors. There is one IPropertyDescriptor
-	 * entry per editable property.
-	 * 
+	 * 디스크립터의 특성추상배열.여기에는 각편집속성당 오직 하나의 IPropertyDiscritor가 들어 있다.
 	 * @see #getPropertyDescriptors()
 	 * @see #getPropertyValue(Object)
 	 * @see #setPropertyValue(Object, Object)
 	 */
 	private static IPropertyDescriptor[] descriptors;
-	/**
-	 * ID for the Height property value (used for by the corresponding property
-	 * descriptor).
-	 */
+	//높이 속성 값에 대한 ID(protertly descriptor에 상응하여 사용하라)
 	private static final String HEIGHT_PROP = "Shape.Height";
 	/** Property ID to use when the location of this shape is modified. */
 	public static final String LOCATION_PROP = "Shape.Location";

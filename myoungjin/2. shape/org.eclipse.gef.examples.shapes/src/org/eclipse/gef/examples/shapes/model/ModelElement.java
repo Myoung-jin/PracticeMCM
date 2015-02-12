@@ -20,30 +20,22 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 
 /**
- * Abstract prototype of a model element.
- * <p>
- * This class provides features necessary for all model elements, like:
- * </p>
- * <ul>
- * <li>property-change support (used to notify edit parts of model changes),</li>
- * <li>property-source support (used to display property values in the Property
- * View) and</li>
- * <li>serialization support (the model hierarchy must be serializable, so that
- * the editor can save and restore a binary representation. You might not need
- * this, if you store the model a non-binary form like XML).</li>
- * </ul>
- * 
- * @author Elias Volanakis
+ * Abstract 모델요소의 프로토타입
+ * 이 클래스는 모든 모델요소를 위한 필수적인 특징을 제공한다.
+ * 1. property-change support (모델변경의 에디트파트 부분을 알려주기위해 ),
+ * 2. property-source support (속성뷰안의 속성값들을 보여주기 위해) 
+ * 3. serialization support (모델계층을 직렬화되게 하기 위해)
+ *  이 편집기는 저장할수 있고 재저장도 가능하다 binary 대표로..
+ * 만약 당신이 non-binary라고 XML같은 폼에 자장해 놨다면 필요 없을 수도 있다.
  */
 public abstract class ModelElement implements IPropertySource, Serializable {
 	//Serializable : 저장.. 한줄로,,IPropertySource :이벤트를 날리는
 	private static final IPropertyDescriptor[] EMPTY_ARRAY = new IPropertyDescriptor[0];
 	private static final long serialVersionUID = 1;
-	/** Delegate used to implemenent property-change-support. */
-	//속성 변화 지원을 implement하는 대표
+	//속성 - 변화 - 지원을 implement하는 대표
 	private transient PropertyChangeSupport pcsDelegate = new PropertyChangeSupport(this);
 	/**
-	 * Attach a non-null PropertyChangeListener to this object.
+	 * non-null PropertyChangeListener를 이 객체에 붙여라
 	 * @param l : a non-null PropertyChangeListener instance
 	 * @throws IllegalArgumentException : if the parameter is null
 	 */

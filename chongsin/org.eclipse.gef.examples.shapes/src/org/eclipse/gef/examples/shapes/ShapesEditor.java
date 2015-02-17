@@ -86,17 +86,17 @@ public class ShapesEditor extends GraphicalEditorWithFlyoutPalette {
 	private ShapesDiagram diagram;
 	/** Palette component, holding the tools and shapes. */
 
-/* 팔 렛트 생성을 위해서 작성한 클래스의 최대 목표는 "Palette Root"라는 팔렛트 최상위 객체를
- *  팔렛트 생성을 요구할 에디터에게 되돌려주는 일이다.
- *   그러므로 반드시 팔렛트의 루트를 되돌려 주는 메소드가 필요로 한다.
- *    위의 소스에서는 2개의 메소드를 작성했는데 굳이 getPaletteRoot()와 같은 메소드를 
- *    사용할 필요없이 생성과 동시에 팔렛트 루트를 반환하면 된다.*/
+	/*   팔 렛트 생성을 위해서 작성한 클래스의 최대 목표는 "Palette Root"라는 팔렛트 최상위 객체를
+	 *   팔렛트 생성을 요구할 에디터에게 되돌려주는 일이다.
+	 *   그러므로 반드시 팔렛트의 루트를 되돌려 주는 메소드가 필요로 한다.
+	 *   위의 소스에서는 2개의 메소드를 작성했는데 굳이 getPaletteRoot()와 같은 메소드를 
+	 *   사용할 필요없이 생성과 동시에 팔렛트 루트를 반환하면 된다.*/
 	private static PaletteRoot PALETTE_MODEL;
 
 	/** Create a new ShapesEditor instance.
 	 *  This is called by the Workspace. */
 	//새로운 ShapesEditor 인스턴스를 생성합니다. 이 작업 공간에 의해 호출된다.
-	public ShapesEditor() {
+	public ShapesEditor() {				//생성자
 		setEditDomain(new DefaultEditDomain(this));
 		//setEditDomain : 이벤트를 받음.
 		// EditDomain : 뷰에서의 이벤트를 받음
@@ -115,7 +115,8 @@ public class ShapesEditor extends GraphicalEditorWithFlyoutPalette {
 	 * 
 	 * @see org.eclipse.gef.ui.parts.GraphicalEditor#configureGraphicalViewer()
 	 */
-	protected void configureGraphicalViewer() {//configureGraphicalViewer() : 그림을 그리게 만듬.. factory
+	protected void configureGraphicalViewer() {
+		//configureGraphicalViewer() : 그림을 그리게 만듬.. factory
 		super.configureGraphicalViewer();
 		//GraphicalViewer : 현재 그려진 그림을 보여 주는 곳 , 첫 시작점이고 여기서 부터 그림을 그림
 		// 마우스 클릭등 사용자의 Input을 받아 들이며 적절한 이벤트 핸들러로 전달

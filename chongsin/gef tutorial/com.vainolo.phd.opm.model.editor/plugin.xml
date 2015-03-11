@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated opm -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="opm.presentation.OpmModelWizardID"
+            name="%_UI_OpmModelWizard_label"
+            class="opm.presentation.OpmModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/OpmModelFile.gif">
+         <description>%_UI_OpmModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated opm -->
+      <editor
+            id="opm.presentation.OpmEditorID"
+            name="%_UI_OpmEditor_label"
+            icon="icons/full/obj16/OpmModelFile.gif"
+            extensions="opm"
+            class="opm.presentation.OpmEditor"
+            contributorClass="opm.presentation.OpmActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

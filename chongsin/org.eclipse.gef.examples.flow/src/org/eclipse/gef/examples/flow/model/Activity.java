@@ -20,7 +20,8 @@ public class Activity extends FlowElement {
 
 	protected static IPropertyDescriptor[] descriptors;
 
-	public static final String NAME = "name"; //$NON-NLS-1$
+	public static final String NAME = "name"; //$NON-NLS-1$ 
+	//Non Langauage System.
 	static {
 		descriptors = new IPropertyDescriptor[] { new TextPropertyDescriptor(
 				NAME, "Name") };

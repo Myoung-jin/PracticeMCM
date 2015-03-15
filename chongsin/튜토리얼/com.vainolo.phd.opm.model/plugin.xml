@@ -2,15 +2,18 @@
 <?eclipse version="3.0"?>
 
 <!--
+ <copyright>
+ </copyright>
+
+ $Id$
 -->
 
 <plugin>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated opm -->
       <package
             uri="www.vainolo.com/phd/opm"
-            class="opm.OpmPackage"
+            class="com.vainolo.phd.opm.model.OPMPackage"
             genModel="model/opm.genmodel"/>
    </extension>
 

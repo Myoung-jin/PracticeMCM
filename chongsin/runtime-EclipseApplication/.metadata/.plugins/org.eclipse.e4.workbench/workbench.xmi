@@ -119,16 +119,10 @@
       <tags>categoryTag:Help</tags>
     </sharedElements>
     <sharedElements xsi:type="advanced:Area" xmi:id="_2QfTgMrOEeSItpCKeTS2VA" elementId="org.eclipse.ui.editorss" selectedElement="_2QfTgcrOEeSItpCKeTS2VA">
-      <children xsi:type="basic:PartStack" xmi:id="_2QfTgcrOEeSItpCKeTS2VA" elementId="org.eclipse.e4.primaryDataStack" selectedElement="_mswjEMrSEeSBCbAS8g1GfA">
+      <children xsi:type="basic:PartStack" xmi:id="_2QfTgcrOEeSItpCKeTS2VA" elementId="org.eclipse.e4.primaryDataStack">
         <tags>newtablook</tags>
         <tags>org.eclipse.e4.primaryDataStack</tags>
         <tags>EditorStack</tags>
-        <children xsi:type="basic:Part" xmi:id="_mswjEMrSEeSBCbAS8g1GfA" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="OPM GEF Editor" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;com.vainolo.phd.opm.gef.editorID&quot; name=&quot;TheBestOPMModel.opm&quot; partName=&quot;OPM GEF Editor&quot; title=&quot;OPM GEF Editor&quot; tooltip=&quot;test/TheBestOPMModel.opm&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/test/TheBestOPMModel.opm&quot;/>&#xD;&#xA;&lt;/editor>"/>
-          <tags>Editor</tags>
-          <tags>com.vainolo.phd.opm.gef.editorID</tags>
-          <tags>removeOnHide</tags>
-        </children>
       </children>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_2QyOhsrOEeSItpCKeTS2VA" elementId="org.eclipse.ui.navigator.ProjectExplorer" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Project Explorer" iconURI="platform:/plugin/org.eclipse.ui.navigator.resources/icons/full/eview16/resource_persp.gif" closeable="true">
@@ -212,7 +206,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_2E_1MsrOEeSItpCKeTS2VA" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_5QI-sMrSEeSkQf8nRCDDYA" elementId="print" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" enabled="false" command="_1oPBPsrOEeSItpCKeTS2VA"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_7gKm98raEeSAMs4tDxqEwQ" elementId="print" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" enabled="false" command="_1oPBPsrOEeSItpCKeTS2VA"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_2E_1M8rOEeSItpCKeTS2VA" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -233,7 +227,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_2FJmMMrOEeSItpCKeTS2VA" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_5QPFUMrSEeSkQf8nRCDDYA" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_1oPA5crOEeSItpCKeTS2VA"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_7gUX-craEeSAMs4tDxqEwQ" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_1oPA5crOEeSItpCKeTS2VA"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_2FJmMcrOEeSItpCKeTS2VA" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>

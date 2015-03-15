@@ -2,15 +2,18 @@
 <?eclipse version="3.0"?>
 
 <!--
+ <copyright>
+ </copyright>
+
+ $Id$
 -->
 
 <plugin>
 
    <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
-      <!-- @generated opm -->
       <factory
             uri="www.vainolo.com/phd/opm"
-            class="opm.provider.OpmItemProviderAdapterFactory"
+            class="com.vainolo.phd.opm.model.provider.OPMItemProviderAdapterFactory"
             supportedTypes=
               "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
                org.eclipse.emf.edit.provider.IStructuredItemContentProvider

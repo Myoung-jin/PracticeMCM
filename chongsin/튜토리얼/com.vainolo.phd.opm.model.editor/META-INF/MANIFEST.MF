@@ -2,13 +2,13 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: com.vainolo.phd.opm.model.editor;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.0
 Bundle-ClassPath: .
-Bundle-Activator: opm.presentation.OpmEditorPlugin$Implementation
+Bundle-Activator: com.vainolo.phd.opm.model.presentation.OPMEditorPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: opm.presentation
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: com.vainolo.phd.opm.model.presentation
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources;visibility:=reexport,
  com.vainolo.phd.opm.model.edit;visibility:=reexport,

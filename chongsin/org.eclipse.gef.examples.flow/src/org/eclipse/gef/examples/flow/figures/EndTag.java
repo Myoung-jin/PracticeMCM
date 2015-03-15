@@ -22,7 +22,7 @@ import org.eclipse.gef.examples.flow.FlowImages;
  */
 public class EndTag extends Label {
 
-	static final Border BORDER = new MarginBorder(2, 0, 2, 2);//top,left,bottom,right
+	static final Border BORDER = new MarginBorder(2, 0, 2, 2);
 
 	/**
 	 * Creates a new StartTag

@@ -27,6 +27,7 @@ import org.eclipse.gef.requests.SimpleFactory;
 import org.eclipse.gef.examples.shapes.model.Connection;
 import org.eclipse.gef.examples.shapes.model.EllipticalShape;
 import org.eclipse.gef.examples.shapes.model.RectangularShape;
+import org.eclipse.gef.examples.shapes.model.TriangularShape;
 
 /**
  * Utility class that can create a GEF Palette.
@@ -38,24 +39,35 @@ final class ShapesEditorPaletteFactory {
 
 	/** Create the "Shapes" drawer. */
 	private static PaletteContainer createShapesDrawer() {
-		PaletteDrawer componentsDrawer = new PaletteDrawer("Shapes");
+		PaletteDrawer componentsDrawer = new PaletteDrawer("Family");
 
 		CombinedTemplateCreationEntry component = new CombinedTemplateCreationEntry(
-				"Ellipse", "Create an elliptical shape", EllipticalShape.class,
+				"Woman", "Create a Woman", EllipticalShape.class,
 				new SimpleFactory(EllipticalShape.class),
 				ImageDescriptor.createFromFile(ShapesPlugin.class,
 						"icons/ellipse16.gif"), ImageDescriptor.createFromFile(
 						ShapesPlugin.class, "icons/ellipse24.gif"));
 		componentsDrawer.add(component);
 
-		component = new CombinedTemplateCreationEntry("Rectangle",
-				"Create a rectangular shape", RectangularShape.class,
+		component = new CombinedTemplateCreationEntry("Man",
+				"Create a Man", RectangularShape.class,
 				new SimpleFactory(RectangularShape.class),
 				ImageDescriptor.createFromFile(ShapesPlugin.class,
 						"icons/rectangle16.gif"),
 				ImageDescriptor.createFromFile(ShapesPlugin.class,
 						"icons/rectangle24.gif"));
 		componentsDrawer.add(component);
+		
+		component = new CombinedTemplateCreationEntry("Triangle",
+				"Create a Triangle", TriangularShape.class,
+				new SimpleFactory(TriangularShape.class),
+				ImageDescriptor.createFromFile(ShapesPlugin.class,
+						"icons/rectangle16.gif"),
+				ImageDescriptor.createFromFile(ShapesPlugin.class,
+						"icons/rectangle24.gif"));
+		componentsDrawer.add(component);
+		
+		
 
 		return componentsDrawer;
 	}

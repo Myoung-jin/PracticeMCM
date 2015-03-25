@@ -67,6 +67,7 @@ class ShapesEditorContextMenuProvider extends ContextMenuProvider {
 				getAction(ActionFactory.REDO.getId()));
 		menu.appendToGroup(GEFActionConstants.GROUP_EDIT,
 				getAction(ActionFactory.DELETE.getId()));
+		
 	}
 
 	private IAction getAction(String actionId) {

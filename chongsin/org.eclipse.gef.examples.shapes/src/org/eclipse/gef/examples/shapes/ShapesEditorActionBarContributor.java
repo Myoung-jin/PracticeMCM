@@ -10,11 +10,16 @@
 ?*******************************************************************************/
 package org.eclipse.gef.examples.shapes;
 
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.ui.actions.ActionFactory;
-
+import org.eclipse.ui.actions.RetargetAction;
+import org.eclipse.gef.internal.GEFMessages;
 import org.eclipse.gef.ui.actions.ActionBarContributor;
 import org.eclipse.gef.ui.actions.DeleteRetargetAction;
+import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.gef.ui.actions.RedoRetargetAction;
 import org.eclipse.gef.ui.actions.UndoRetargetAction;
 
@@ -35,6 +40,7 @@ public class ShapesEditorActionBarContributor extends ActionBarContributor {
 		addRetargetAction(new DeleteRetargetAction());
 		addRetargetAction(new UndoRetargetAction());
 		addRetargetAction(new RedoRetargetAction());
+		addRetargetAction(new RetargetAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY,GEFMessages.ToggleGrid_Label,IAction.AS_CHECK_BOX));
 		//addRetargetAction : 이 ActionRegistry 을 기여자 에 지정된 RetargetAction 를 추가합니다.
 		//RetargetAction 또한 투고 페이지 의 IPartListener 으로 추가됩니다. 
 		//또한, 타겟의 재 작업 의 ID 는 addGlobalActionKey ( String)를 호출하여 ,
@@ -53,6 +59,17 @@ public class ShapesEditorActionBarContributor extends ActionBarContributor {
 		//툴바 지정시 
 	}
 
+	@Override
+	public void contributeToMenu(IMenuManager menuManager) {
+		// TODO Auto-generated method stub
+		super.contributeToMenu(menuManager);
+		
+		MenuManager viewMenu = new MenuManager("menu");
+		viewMenu.add(getAction(GEFActionConstants.TOGGLE_RULER_VISIBILITY));   
+		
+		
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 

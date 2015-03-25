@@ -17,12 +17,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.EventObject;
+import java.util.List;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -40,11 +41,13 @@ import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.IPageSite;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
-
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gef.SnapToGrid;
+import org.eclipse.gef.SnapToHelper;
 import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
@@ -58,7 +61,6 @@ import org.eclipse.gef.ui.parts.ContentOutlinePage;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.gef.ui.parts.TreeViewer;
-
 import org.eclipse.gef.examples.shapes.model.ShapesDiagram;
 import org.eclipse.gef.examples.shapes.parts.ShapesEditPartFactory;
 import org.eclipse.gef.examples.shapes.parts.ShapesTreeEditPartFactory;
@@ -73,7 +75,7 @@ import org.eclipse.gef.examples.shapes.parts.ShapesTreeEditPartFactory;
 /*
  * 원을 줄이기 위해서는 에디터의 그려지는 영역을 담당한 Diagram이 필요하다.
  *  Diagram은 도화지의 역할을 한다고 생각하면 된다.
- *  그리고 원은 그 위에 특정 크기만큼 그리면 되는 것이다.
+ *  그리고 원은 그 위에 특정 크기만큼 그리면 되는 것이다.		
  *  Diagram위에 그려지는 원은 Diagram에서 알고 있어야 한다. 
  *  그래야 새로고침이 되거나, 자식이 이동을 했을때, 다시 그려질 수 있다.
  *  이 목록은 Diagram에서 List로 관리를 한다.
@@ -134,6 +136,9 @@ public class ShapesEditor extends GraphicalEditorWithFlyoutPalette {
 		viewer.setEditPartFactory(new ShapesEditPartFactory());
 		viewer.setRootEditPart(new ScalableFreeformRootEditPart());
 		viewer.setKeyHandler(new GraphicalViewerKeyHandler(viewer));
+		
+		viewer.setProperty(SnapToGrid.PROPERTY_GRID_ENABLED, true);
+		viewer.setProperty(SnapToGrid.PROPERTY_GRID_VISIBLE, true);
 
 		// 컨텍스트 메뉴 제공자를 설정한다.
 		ContextMenuProvider cmProvider 
@@ -292,12 +297,22 @@ public class ShapesEditor extends GraphicalEditorWithFlyoutPalette {
 		}
 	}
 
+	//이부분이 우려가 됨.
 	public Object getAdapter(Class type) {
-		if (type == IContentOutlinePage.class)
-			return new ShapesOutlinePage(new TreeViewer());
+		
+		if (type == SnapToHelper.class) {   
+		     List snaps = new ArrayList();   
+		     Boolean val =(Boolean) getGraphicalViewer().getProperty(SnapToGrid.PROPERTY_GRID_ENABLED);   
+		    if(val != null && val.booleanValue()) snaps.add(new SnapToGrid((GraphicalEditPart) this));
+		    
+		    if (snaps.size() == 0) return null;   
+		   	if (snaps.size() == 1) return snaps.get(0);   
+    
+		//if (type == IContentOutlinePage.class)
+		//	return new ShapesOutlinePage(new TreeViewer());
+		}
 		return super.getAdapter(type);
-	}
-
+	}	
 	ShapesDiagram getModel() { 
 		return diagram;
 	}

@@ -22,6 +22,7 @@ import org.eclipse.draw2d.EllipseAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.draw2d.Triangle;
 
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPolicy;
@@ -38,6 +39,7 @@ import org.eclipse.gef.examples.shapes.model.Connection;
 import org.eclipse.gef.examples.shapes.model.EllipticalShape;
 import org.eclipse.gef.examples.shapes.model.ModelElement;
 import org.eclipse.gef.examples.shapes.model.RectangularShape;
+import org.eclipse.gef.examples.shapes.model.TriangularShape;
 import org.eclipse.gef.examples.shapes.model.Shape;
 import org.eclipse.gef.examples.shapes.model.commands.ConnectionCreateCommand;
 import org.eclipse.gef.examples.shapes.model.commands.ConnectionReconnectCommand;
@@ -177,7 +179,11 @@ class ShapeEditPart extends AbstractGraphicalEditPart implements
 			return new Ellipse();
 		} else if (getModel() instanceof RectangularShape) {
 			return new RectangleFigure();
-		} else {
+		} else if (getModel() instanceof TriangularShape){
+			return new Triangle();		
+		}
+		
+		else {
 			// if Shapes gets extended the conditions above must be updated
 			throw new IllegalArgumentException();
 		}
@@ -203,6 +209,8 @@ class ShapeEditPart extends AbstractGraphicalEditPart implements
 			if (getModel() instanceof EllipticalShape)
 				anchor = new EllipseAnchor(getFigure());
 			else if (getModel() instanceof RectangularShape)
+				anchor = new ChopboxAnchor(getFigure());
+			else if(getModel() instanceof TriangularShape)
 				anchor = new ChopboxAnchor(getFigure());
 			else
 				// if Shapes gets extended the conditions above must be updated

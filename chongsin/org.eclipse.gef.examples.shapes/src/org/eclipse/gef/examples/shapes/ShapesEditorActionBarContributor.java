@@ -14,6 +14,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.RetargetAction;
 import org.eclipse.gef.internal.GEFMessages;
@@ -22,6 +23,9 @@ import org.eclipse.gef.ui.actions.DeleteRetargetAction;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.gef.ui.actions.RedoRetargetAction;
 import org.eclipse.gef.ui.actions.UndoRetargetAction;
+import org.eclipse.gef.ui.actions.ZoomComboContributionItem;
+import org.eclipse.gef.ui.actions.ZoomInRetargetAction;
+import org.eclipse.gef.ui.actions.ZoomOutRetargetAction;
 
 /**
  * Contributes actions to a toolbar. This class is tied to the editor in the
@@ -45,7 +49,8 @@ public class ShapesEditorActionBarContributor extends ActionBarContributor {
 		//RetargetAction 또한 투고 페이지 의 IPartListener 으로 추가됩니다. 
 		//또한, 타겟의 재 작업 의 ID 는 addGlobalActionKey ( String)를 호출하여 ,
 		//글로벌 액션 키로 있다.
-
+		addRetargetAction(new ZoomInRetargetAction());
+		addRetargetAction(new ZoomOutRetargetAction());
 	}
 
 	/**
@@ -57,6 +62,12 @@ public class ShapesEditorActionBarContributor extends ActionBarContributor {
 		toolBarManager.add(getAction(ActionFactory.UNDO.getId()));
 		toolBarManager.add(getAction(ActionFactory.REDO.getId()));
 		//툴바 지정시 
+		
+		toolBarManager.add(new Separator());
+		toolBarManager.add(getAction(GEFActionConstants.ZOOM_IN));
+		toolBarManager.add(getAction(GEFActionConstants.ZOOM_OUT));
+		toolBarManager.add(new ZoomComboContributionItem(getPage()));
+		
 	}
 
 	@Override

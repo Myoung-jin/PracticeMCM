@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.List;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
@@ -46,15 +47,24 @@ import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gef.KeyHandler;
+import org.eclipse.gef.KeyStroke;
+import org.eclipse.gef.MouseWheelHandler;
+import org.eclipse.gef.MouseWheelZoomHandler;
 import org.eclipse.gef.SnapToGrid;
 import org.eclipse.gef.SnapToHelper;
 import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
+import org.eclipse.gef.editparts.ScalableRootEditPart;
+import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.gef.requests.SimpleFactory;
 import org.eclipse.gef.ui.actions.ActionRegistry;
+import org.eclipse.gef.ui.actions.GEFActionConstants;
+import org.eclipse.gef.ui.actions.ZoomInAction;
+import org.eclipse.gef.ui.actions.ZoomOutAction;
 import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.gef.ui.palette.PaletteViewerProvider;
 import org.eclipse.gef.ui.parts.ContentOutlinePage;
@@ -145,8 +155,45 @@ public class ShapesEditor extends GraphicalEditorWithFlyoutPalette {
 			= new ShapesEditorContextMenuProvider(viewer, getActionRegistry());
 		viewer.setContextMenu(cmProvider);
 		getSite().registerContextMenu(cmProvider, viewer);
+
+		configureZoomLevel(); 
+	    configureKeyHandler(); 
 	}
 
+	private void configureZoomLevel(){
+		GraphicalViewer viewer = getGraphicalViewer();
+		
+		ScalableRootEditPart rootEditPart = new ScalableRootEditPart();
+		viewer.setRootEditPart(rootEditPart);
+		
+		ZoomManager manager = rootEditPart.getZoomManager();
+		getActionRegistry().registerAction(new ZoomInAction(manager));
+		getActionRegistry().registerAction(new ZoomOutAction(manager));
+		
+		double[] zoomlevels = new double[]{
+				0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0 ,10.0, 20.0
+		};
+		
+		manager.setZoomLevels(zoomlevels);
+		
+		List<String> contributions = new ArrayList<String>();
+		contributions.add(ZoomManager.FIT_ALL);
+		contributions.add(ZoomManager.FIT_HEIGHT);
+		contributions.add(ZoomManager.FIT_WIDTH);
+		manager.setZoomLevelContributions(contributions);
+			
+	}
+	
+	private void configureKeyHandler(){
+		GraphicalViewer viewer = getGraphicalViewer();
+		KeyHandler keyHandler = new KeyHandler();
+		keyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, 0), getActionRegistry().getAction(ActionFactory.DELETE.getId()));
+		keyHandler.put(KeyStroke.getPressed('+',SWT.KEYPAD_ADD,0), getActionRegistry().getAction(GEFActionConstants.ZOOM_IN));
+		keyHandler.put(KeyStroke.getPressed('-',SWT.KEYPAD_SUBTRACT,0),getActionRegistry().getAction(GEFActionConstants.ZOOM_OUT));
+		
+		viewer.setProperty(MouseWheelHandler.KeyGenerator.getKey(SWT.NONE), MouseWheelZoomHandler.SINGLETON);
+		viewer.setKeyHandler(keyHandler);
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -311,7 +358,11 @@ public class ShapesEditor extends GraphicalEditorWithFlyoutPalette {
 		//if (type == IContentOutlinePage.class)
 		//	return new ShapesOutlinePage(new TreeViewer());
 		}
-		return super.getAdapter(type);
+		
+		if(type == ZoomManager.class)			
+			return ((ScalableRootEditPart) getGraphicalViewer().getRootEditPart()).getZoomManager();   
+		else 	
+			return super.getAdapter(type);
 	}	
 	ShapesDiagram getModel() { 
 		return diagram;

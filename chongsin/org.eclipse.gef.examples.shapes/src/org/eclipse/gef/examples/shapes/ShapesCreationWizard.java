@@ -8,6 +8,8 @@
 ?* Contributors:
 ?*????Elias Volanakis - initial API and implementation
 ?*******************************************************************************/
+
+//project start
 package org.eclipse.gef.examples.shapes;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
